@@ -25,11 +25,12 @@
   todo.prototype.AJAXRequest = function(method, url, callback, data){
     var success = function (resp) { this.AJAXSuccess(resp, callback.bind(this)); }.bind(this),
         error = function (resp) { this.AJAXError(method, url, resp); }.bind(this);
-        
+
     $.ajax({
       url: url,
       type: method,
       beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));},
+      dataType: 'json',
       data: data,
       success: success,
       error: error
@@ -49,7 +50,7 @@
   };
 
   todo.prototype.create = function (obj){
-    var data = "todo=" + JSON.stringify(obj),
+    var data = {todo: obj},
         url = "/api/todos/";
 
     this.AJAXRequest("POST", url, this.createProcessor, data);
@@ -79,7 +80,7 @@
   };
 
   todo.prototype.update = function (obj){
-    var data = "todo=" + JSON.stringify(obj),
+    var data = {todo: obj},
         id = obj.id,
         url = "/api/todos/";
 

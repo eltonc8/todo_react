@@ -1,5 +1,6 @@
 class Todo < ActiveRecord::Base
-  validates :title, :done, presence: true
+  validates :title, presence: true
+  validates :done, inclusion: { in: [true, false] }
   after_initialize :defaults
 
   def defaults

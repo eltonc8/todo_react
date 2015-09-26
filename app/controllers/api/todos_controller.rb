@@ -11,7 +11,7 @@ module Api
     end
 
     def create
-      @todo = Todo.new(params[:id])
+      @todo = Todo.new(todo_params)
       if @todo.save
         render json: @todo, status: 201
       else
