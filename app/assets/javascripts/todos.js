@@ -22,8 +22,10 @@
     console.log(errorMessage + resp.responseText);
   };
 
-  todo.prototype.AJAXRequest = function(method, url, callback, data){
-    var success = function (resp) { this.AJAXSuccess(resp, callback.bind(this)); }.bind(this),
+  todo.prototype.AJAXRequest = function(method, callback, todoObj){
+    var url = "/api/todos/" + (todoObj && todoObj.id ? todoObj.id : ""),
+        data = todoObj ? {todo: todoObj} : null,
+        success = function (resp) { this.AJAXSuccess(resp, callback.bind(this)); }.bind(this),
         error = function (resp) { this.AJAXError(method, url, resp); }.bind(this);
 
     $.ajax({
@@ -42,7 +44,7 @@
   };
 
   todo.prototype.fetch = function (){
-    this.AJAXRequest("GET", "/api/todos/", this.fetchProcessor);
+    this.AJAXRequest("GET", this.fetchProcessor);
   };
 
   todo.prototype.createProcessor = function (resp){
@@ -50,10 +52,7 @@
   };
 
   todo.prototype.create = function (obj){
-    var data = {todo: obj},
-        url = "/api/todos/";
-
-    this.AJAXRequest("POST", url, this.createProcessor, data);
+    this.AJAXRequest("POST", this.createProcessor, obj);
   };
 
   todo.prototype.destroyProcessor = function (resp){
@@ -63,10 +62,7 @@
   };
 
   todo.prototype.destroy = function (obj){
-    var id = obj.id,
-        url = "/api/todos/" + id;
-
-    this.AJAXRequest("DELETE", url, this.destroyProcessor);
+    this.AJAXRequest("DELETE", this.destroyProcessor, obj);
   };
 
   todo.prototype.toggleDone = function (obj){
@@ -74,16 +70,9 @@
     this.update(obj);
   };
 
-  todo.prototype.updateProcessor = function (resp){
-    resp = JSON.parse(resp);
-    this.changed();
-  };
+  todo.prototype.updateProcessor = function (resp){};
 
   todo.prototype.update = function (obj){
-    var data = {todo: obj},
-        id = obj.id,
-        url = "/api/todos/";
-
-    this.AJAXRequest("PATCH", url, this.updateProcessor, data);
+    this.AJAXRequest("PATCH", this.updateProcessor, obj);
   };
 })();
