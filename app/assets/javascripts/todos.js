@@ -4,40 +4,36 @@
   if (typeof window.Todo == "undefined") {
       window.Todo = {};
   }
-  console.log("todo is evaluated");
 
   var todo = Todo.todos = function (callback){
     this.changed = callback;
     this._todos = [];
   };
 
-  todo.prototype.XMLReply = function(resp, callback){
-    resp = JSON.parse(resp);
+  todo.prototype.AJAXSuccess = function(resp, callback){
     callback(resp);
     this.changed();
   };
 
-  todo.prototype.XMLRequest = function(method, url, callback){
-    var fn = function (resp) { this.XMLReply(resp, callback.bind(this)); }.bind(this);
-
-    var xmlhttp = window.XMLHttpRequest && new window.XMLHttpRequest() ||
-        window.ActiveXObject && new window.ActiveXObject("Microsoft.XMLHTTP");
+  todo.prototype.AJAXError = function(method, url, resp){
     var errorMessage = "error in request, (#method), to (#url). Replied with status: ";
     errorMessage = errorMessage.replace(/#method/, method);
     errorMessage = errorMessage.replace(/#url/, url);
+    console.log(errorMessage + resp.responseText);
+  };
 
-    xmlhttp.onreadystatechange = function (){
-      if (xmlhttp.readyState == XMLHttpRequest.DONE ){
-        if(xmlhttp.status == 200){
-          fn(xmlhttp.responseText);
-        } else {
-          console.log(errorMessage + xmlhttp.status);
-        }
-      }
-    };
-
-    xmlhttp.open(method, url, true);
-    xmlhttp.send();
+  todo.prototype.AJAXRequest = function(method, url, callback, data){
+    var success = function (resp) { this.AJAXSuccess(resp, callback.bind(this)); }.bind(this),
+        error = function (resp) { this.AJAXError(method, url, resp); }.bind(this);
+        
+    $.ajax({
+      url: url,
+      type: method,
+      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));},
+      data: data,
+      success: success,
+      error: error
+    });
   };
 
   todo.prototype.fetchProcessor = function (resp){
@@ -45,7 +41,7 @@
   };
 
   todo.prototype.fetch = function (){
-    this.XMLRequest("GET", "/api/todos/", this.fetchProcessor);
+    this.AJAXRequest("GET", "/api/todos/", this.fetchProcessor);
   };
 
   todo.prototype.createProcessor = function (resp){
@@ -53,10 +49,10 @@
   };
 
   todo.prototype.create = function (obj){
-    var data = JSON.stringify(obj),
-        url = "/api/todos/?todo=" + data;
+    var data = "todo=" + JSON.stringify(obj),
+        url = "/api/todos/";
 
-    this.XMLRequest("POST", url, this.createProcessor);
+    this.AJAXRequest("POST", url, this.createProcessor, data);
   };
 
   todo.prototype.destroyProcessor = function (resp){
@@ -69,7 +65,7 @@
     var id = obj.id,
         url = "/api/todos/" + id;
 
-    this.XMLRequest("DELETE", url, this.destroyProcessor);
+    this.AJAXRequest("DELETE", url, this.destroyProcessor);
   };
 
   todo.prototype.toggleDone = function (obj){
@@ -83,10 +79,10 @@
   };
 
   todo.prototype.update = function (obj){
-    var data = JSON.stringify(obj),
+    var data = "todo=" + JSON.stringify(obj),
         id = obj.id,
-        url = "/api/todos/?todo=" + data;
+        url = "/api/todos/";
 
-    this.XMLRequest("PATCH", url, this.updateProcessor);
+    this.AJAXRequest("PATCH", url, this.updateProcessor, data);
   };
 })();
