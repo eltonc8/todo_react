@@ -17,9 +17,12 @@ var TodoList = React.createClass({
 
     return (
       <ul className="todo">
+        <li key={0} className="todo-form">
+          <TodoForm/>
+        </li>
       {
         todos.map(function (todo, idx){
-          return <li key={idx}>{<TodoListItem todo={todo} />}</li>
+          return <li key={idx + 1}>{<TodoListItem todo={todo} />}</li>
         })
       }
       </ul>
@@ -32,5 +35,4 @@ $(function () {
     <TodoList />,
     $("#root").get(0)
   )
-
 });
