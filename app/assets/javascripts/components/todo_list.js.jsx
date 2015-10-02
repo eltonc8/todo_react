@@ -4,15 +4,16 @@ var TodoList = React.createClass({
   },
 
   componentDidMount: function(){
-    this.props.todos.fetch();
+    Todos.addChangedHandler(this.todosChanged.bind(this));
+    Todos.fetch();
   },
 
   todosChanged: function(){
-    return { todos: Todos.all() };
+    this.setState({todos: Todos.all()});
   },
 
   render: function(){
-    todos = this.props.todos;
+    todos = this.state.todos;
 
     return (
       <ul className="todo">
@@ -26,12 +27,9 @@ var TodoList = React.createClass({
 });
 
 $(function () {
-
-var globalRender = function () {
   React.render(
-    <TodoList todos={todos} />,
+    <TodoList />,
     $("#root").get(0)
   )
-}
 
 });

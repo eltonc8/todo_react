@@ -42,7 +42,7 @@
   };
 
   Todos.changed = function () {
-    this._callbacks.forEach( function (fn) {fn();}.bind(this) );
+    this._callbacks.forEach( function (fn) {fn();} );
   };
 
   Todos.addChangedHandler = function (fn) {
