@@ -4,7 +4,7 @@ var TodoList = React.createClass({
   },
 
   componentDidMount: function(){
-    Todos.addChangedHandler(this.todosChanged.bind(this));
+    Todos.addChangedHandler(this.todosChanged);
     Todos.fetch();
   },
 
@@ -17,9 +17,10 @@ var TodoList = React.createClass({
 
     return (
       <ul className="todo">
-      {todos.map(function (item){
-        return <li>{item.title}</li>
-      })
+      {
+        todos.map(function (todo, idx){
+          return <li key={idx}>{<TodoListItem todo={todo} />}</li>
+        })
       }
       </ul>
     )

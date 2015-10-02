@@ -3,13 +3,13 @@ var TodoListItem = React.createClass({
   },
 
   render: function(){
-    var item = this.props.item;
+    var todo = this.props.todo;
     return (
-      <li>
-        <div className="todo-list-item-title">{item.title}</div>
-        <div className="todo-list-item-body">{item.body}</div>
-        <div className="todo-list-item-done">{item.done}</div>
-      </li>
+      <div>
+        <div className="todo-list-item-title">{todo.title}</div>
+        <div className="todo-list-item-body">{todo.body}</div>
+        <div className="todo-list-item-done">{todo.done}</div>
+      </div>
     )
   },
 });
