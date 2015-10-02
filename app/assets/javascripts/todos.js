@@ -1,28 +1,26 @@
 ;(function (){
   "use strict";
 
-  if (typeof window.Todo == "undefined") {
-      window.Todo = {};
+  if (typeof window.Todos == "undefined") {
+      window.Todos = {};
   }
 
-  var todo = Todo.todos = function (callback){
-    this.changed = callback;
-    this._todos = [];
-  };
+  Todos._todos = [];
+  Todos._callbacks = [];
 
-  todo.prototype.AJAXSuccess = function(resp, callback){
+  Todos.AJAXSuccess = function(resp, callback){
     callback(resp);
     this.changed();
   };
 
-  todo.prototype.AJAXError = function(method, url, resp){
+  Todos.AJAXError = function(method, url, resp){
     var errorMessage = "error in request, (#method), to (#url). Replied with status: ";
     errorMessage = errorMessage.replace(/#method/, method);
     errorMessage = errorMessage.replace(/#url/, url);
     console.log(errorMessage + resp.responseText);
   };
 
-  todo.prototype.AJAXRequest = function(method, callback, todoObj){
+  Todos.AJAXRequest = function(method, callback, todoObj){
     var url = "/api/todos/" + (todoObj && todoObj.id ? todoObj.id : ""),
         data = todoObj ? {todo: todoObj} : null,
         success = function (resp) { this.AJAXSuccess(resp, callback.bind(this)); }.bind(this),
@@ -39,40 +37,57 @@
     });
   };
 
-  todo.prototype.fetchProcessor = function (resp){
+  Todos.all = function () {
+    return this._todos.slice(0);
+  };
+
+  Todos.changed = function () {
+    this._callbacks.forEach( function (fn) {fn();}.bind(this) );
+  };
+
+  Todos.addChangedHandler = function (fn) {
+    this._callbacks.push(fn);
+  };
+
+  Todos.removeChangedHandler = function (fn) {
+    var index = this._callbacks.indexOf( fn );
+    if (index >= 0) this._todos.splice(index, 1);
+  };
+
+  Todos.fetchProcessor = function (resp){
     this._todos = resp;
   };
 
-  todo.prototype.fetch = function (){
+  Todos.fetch = function (){
     this.AJAXRequest("GET", this.fetchProcessor);
   };
 
-  todo.prototype.createProcessor = function (resp){
+  Todos.createProcessor = function (resp){
     this._todos.push(resp);
   };
 
-  todo.prototype.create = function (obj){
+  Todos.create = function (obj){
     this.AJAXRequest("POST", this.createProcessor, obj);
   };
 
-  todo.prototype.destroyProcessor = function (resp){
+  Todos.destroyProcessor = function (resp){
     var id = resp.id,
         index = this._todos.findIndex(function (obj) {return obj.id == id; });
     if (index >= 0) this._todos.splice(index, 1);
   };
 
-  todo.prototype.destroy = function (obj){
+  Todos.destroy = function (obj){
     this.AJAXRequest("DELETE", this.destroyProcessor, obj);
   };
 
-  todo.prototype.toggleDone = function (obj){
+  Todos.toggleDone = function (obj){
     obj.done = obj.done ? false : true;
     this.update(obj);
   };
 
-  todo.prototype.updateProcessor = function (resp){};
+  Todos.updateProcessor = function (resp){};
 
-  todo.prototype.update = function (obj){
+  Todos.update = function (obj){
     this.AJAXRequest("PATCH", this.updateProcessor, obj);
   };
-})();
+}.call(this));
