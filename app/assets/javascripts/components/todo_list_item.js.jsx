@@ -1,5 +1,7 @@
 var TodoListItem = React.createClass({
-  componentDidMount: function(){
+  delete: function(event){
+    event.preventDefault();
+    Todos.destroy(this.props.todo);
   },
 
   render: function(){
@@ -9,6 +11,7 @@ var TodoListItem = React.createClass({
         <div className="todo-list-item-title">{todo.title}</div>
         <div className="todo-list-item-body">{todo.body}</div>
         <div className="todo-list-item-done">{todo.done}</div>
+        <button onClick={this.delete} className="btn btn-danger">Delete</button>
       </div>
     )
   },
