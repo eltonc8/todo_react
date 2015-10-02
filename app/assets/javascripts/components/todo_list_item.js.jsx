@@ -10,7 +10,7 @@ var TodoListItem = React.createClass({
       <div>
         <div className="todo-list-item-title">{todo.title}</div>
         <div className="todo-list-item-body">{todo.body}</div>
-        <div className="todo-list-item-done">{todo.done}</div>
+        <DoneButton todo={todo}/>
         <button onClick={this.delete} className="btn btn-danger">Delete</button>
       </div>
     )
