@@ -1,17 +1,24 @@
 var TodoListItem = React.createClass({
-  delete: function(event){
-    event.preventDefault();
-    Todos.destroy(this.props.todo);
+  getInitialState: function(){
+    return { hidden: true };
+  },
+
+  toggleDetail: function(event){
+    var toggle = !this.state.hidden
+    this.setState({ hidden: toggle })
   },
 
   render: function(){
-    var todo = this.props.todo;
+    var todo = this.props.todo,
+        hidden = this.state.hidden
+
     return (
       <div>
         <div className="todo-list-item-title">{todo.title}</div>
-        <div className="todo-list-item-body">{todo.body}</div>
         <DoneButton todo={todo}/>
-        <button onClick={this.delete} className="btn btn-danger">Delete</button>
+        <button className="btn btn-info" onClick={this.toggleDetail}>
+          More Details</button>
+        {hidden ? "" : <TodoDetailView todo={todo} />}
       </div>
     )
   },
