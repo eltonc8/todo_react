@@ -17,3 +17,5 @@
 //= require components
 //= require_tree .
 //= require todos
+//= require flux
+//= require eventemitter
