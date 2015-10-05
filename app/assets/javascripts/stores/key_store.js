@@ -10,6 +10,10 @@
     _playingKeys[key] = undefined;
   }
 
+  function keyState(key){
+    return _playingKeys[key];
+  }
+
   window.KeyStore = $.extend({}, EventEmitter.prototype, {
     emitChange: function(){
       this.emit(CHANGE_EVENT);
@@ -22,19 +26,20 @@
       this.on(CHANGE_EVENT, callback);
     },
 
+    keyState: function(key){
+      return keyState(key);
+    },
+
     /**
     * @param {function} callback
     */
     removeChangeListener: function(callback) {
       this.removeListener(CHANGE_EVENT, callback);
-    }
-
+    },
   });
 
   // Register callback to handle all updates
   AppDispatcher.register(function(action) {
-    var key;
-
     switch(action.actionType) {
 
       case "keyPlay":
@@ -50,4 +55,5 @@
       default:
       // no op
     }
-  })();
+  });
+})();
