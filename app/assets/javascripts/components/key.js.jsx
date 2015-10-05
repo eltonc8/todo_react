@@ -1,6 +1,6 @@
 var Key = React.createClass({
   getInitialState: function(){
-    return {};
+    return {pressed: false};
   },
 
   componentDidMount: function(){
@@ -8,12 +8,14 @@ var Key = React.createClass({
         freq = TONES[noteName];
     this.note = new Note(freq);
     KeyStore.addChangeListener(this._onChange);
-    // KeyStore.on("keyPlay", this.noteStart);
-    // KeyStore.on("keyPlayStop", this.noteStop);
+  },
+
+  componentWillUnmount: function() {
+    TodoStore.removeChangeListener(this._onChange);
   },
 
   render: function(){
-    var classTags = "btn " + (this.state.pressed ? "btn-active " : ""),
+    var classTags = "btn " + (this.state.pressed ? "active " : ""),
         key = this.props.keyName,
         sharp = /#/.test(key);
 
@@ -24,13 +26,7 @@ var Key = React.createClass({
   },
 
   _onChange: function(){
-    KeyStore.keyState(this.props.keyName) ? this.note.start() : this.note.stop();
+    this.setState({pressed: KeyStore.keyState(this.props.keyName)})
+    this.state.pressed ? this.note.start() : this.note.stop();
   },
 });
-
-$(function(){
-  React.render(
-    <Key keyName={"A4"}/>,
-    $("#content").get(0)
-  )
-})
