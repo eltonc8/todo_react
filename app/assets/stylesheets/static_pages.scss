@@ -1,3 +1,49 @@
 // Place all the styles related to the static_pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.white-keys > .btn {
+  position: relative;
+  height: 240px;
+  width: 60px;
+  z-index: -1;
+}
+
+.white-keys > .btn > span {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+}
+
+.black-keys {
+  z-index: 1;
+  margin-top: -240px;
+}
+
+.black-keys > .btn {
+  height: 120px;
+  width: 40px;
+  background-color: #000;
+  color: #FFF;
+  margin-left: 20px;
+}
+
+.black-keys > .btn:nth-of-type(5n+6) { margin-left: 80px; }
+.black-keys > .btn:nth-of-type(5n+3) { margin-left: 80px; }
+.black-keys > .btn:first-of-type { margin-left: 40px; }
+
+.black-keys > .btn.active {
+  background-color: #444;
+}
+
+.black-keys > .btn > span {
+  float: left;
+  margin-left: -20px;
+  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}

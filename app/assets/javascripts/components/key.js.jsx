@@ -11,17 +11,15 @@ var Key = React.createClass({
   },
 
   componentWillUnmount: function() {
-    TodoStore.removeChangeListener(this._onChange);
+    KeyStore.removeChangeListener(this._onChange);
   },
 
   render: function(){
-    var classTags = "btn " + (this.state.pressed ? "active " : ""),
-        key = this.props.keyName,
-        sharp = /#/.test(key);
+    var classTags = "btn btn-default " + (this.state.pressed ? "active " : ""),
+        key = this.props.keyName;
 
-    classTags = classTags + (sharp ? "btn-primary" : "btn-default");
     return (
-      <button className={classTags}>{key}</button>
+      <button className={classTags}><span>{key}</span></button>
     )
   },
 
