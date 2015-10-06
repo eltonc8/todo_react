@@ -22,7 +22,7 @@
   margin: 20px auto 0;
 }
 
-.white-keys > .btn {
+.white-key.btn {
   position: relative;
   height: 240px;
   width: 60px;
@@ -34,7 +34,7 @@
   transform: rotate(180deg);
 }
 
-.white-keys > .btn > span {
+.white-key.btn > span {
   position: absolute;
   top: 10px;
   left: 0;
@@ -47,10 +47,12 @@
 }
 
 .black-keys {
+  pointer-events: none;
   z-index: 20;
 }
 
-.black-keys > .btn {
+.black-key.btn {
+  pointer-events:all;
   height: 120px;
   width: 40px;
   background-color: #000;
@@ -58,16 +60,16 @@
   margin-left: 20px;
 }
 
-.black-keys > .btn:nth-of-type(5n+6) { margin-left: 80px; }
-.black-keys > .btn:nth-of-type(5n+3) { margin-left: 80px; }
-.black-keys > .btn:first-of-type { margin-left: 40px; }
+.black-key.btn:nth-of-type(5n+6) { margin-left: 80px; }
+.black-key.btn:nth-of-type(5n+3) { margin-left: 80px; }
+.black-key.btn:first-of-type { margin-left: 40px; }
 
-.black-keys > .btn:hover,
-.black-keys > .btn.active {
+.black-key.btn:hover,
+.black-key.btn.active {
   background-color: #444;
 }
 
-.black-keys > .btn > span {
+.black-key.btn > span {
   float: left;
   margin-left: -20px;
   margin-top: 60px;

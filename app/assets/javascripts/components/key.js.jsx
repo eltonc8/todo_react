@@ -15,8 +15,10 @@ var Key = React.createClass({
   },
 
   render: function(){
-    var classTags = "btn btn-default " + (this.state.pressed ? "active " : ""),
-        key = this.props.keyName;
+    var key = this.props.keyName,
+        classTags = "btn btn-default " +
+           (this.state.pressed ? "active " : "") +
+           (/#/.exec(key) ? "black-key " : "white-key ");
 
     return (
       <div className={classTags}><span>{key}</span></div>

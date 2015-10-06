@@ -6,12 +6,9 @@ var Organ = React.createClass({
 
   render: function(){
     var keyList = KeyActions.keyCodesToNotes,
-        blackKeyArray = this.blackKeys.map(function(key){
-          return (<Key keyName={keyList[key]}/>);
-        }),
-        whiteKeyArray = this.whiteKeys.map(function(key){
-          return (<Key keyName={keyList[key]}/>);
-        });
+        blackKeyArray = this._getKeys(this.blackKeys),
+        whiteKeyArray = this._getKeys(this.whiteKeys);
+
     return (
       <div className="organ">
         <Recorder />
@@ -25,8 +22,15 @@ var Organ = React.createClass({
         </div>
       </div>
     )
-  }
+  },
 
+  _getKeys: function(keys){
+    var keyList = KeyActions.keyCodesToNotes;
+
+    return keys.map(function(key){
+      return (<Key keyName={keyList[key]}/>);
+    });
+  },
 })
 
 $(function(){
