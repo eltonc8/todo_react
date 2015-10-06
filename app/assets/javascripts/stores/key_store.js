@@ -19,6 +19,10 @@
       this.emit(CHANGE_EVENT);
     },
 
+    allKeyState: function(){
+      return jQuery.extend({}, _playingKeys);
+    },
+
     /**
     * @param {function} callback
     */
