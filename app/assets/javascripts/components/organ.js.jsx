@@ -15,11 +15,13 @@ var Organ = React.createClass({
     return (
       <div className="organ">
         <Recorder />
-        <div className="white-keys">
-          {whiteKeyArray}
-        </div>
-        <div className="black-keys">
-          {blackKeyArray}
+        <div className="row keyboard">
+          <div className="black-keys keys-set">
+            {blackKeyArray}
+          </div>
+          <div className="white-keys keys-set">
+            {whiteKeyArray}
+          </div>
         </div>
       </div>
     )

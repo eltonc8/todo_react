@@ -19,7 +19,7 @@ var Key = React.createClass({
         key = this.props.keyName;
 
     return (
-      <button className={classTags}><span>{key}</span></button>
+      <div className={classTags}><span>{key}</span></div>
     )
   },
 

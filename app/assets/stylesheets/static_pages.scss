@@ -2,27 +2,52 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.organ {
+  margin: auto;
+}
+
 .btn-record {
   min-width: 90px;
+}
+
+.keyboard {
+  position: relative;
+}
+
+.keyboard > .keys-set {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 20px auto 0;
 }
 
 .white-keys > .btn {
   position: relative;
   height: 240px;
   width: 60px;
-  z-index: -1;
+  z-index: 10;
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .white-keys > .btn > span {
   position: absolute;
-  bottom: 10px;
+  top: 10px;
   left: 0;
   right: 0;
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .black-keys {
-  z-index: 1;
-  margin-top: -240px;
+  z-index: 20;
 }
 
 .black-keys > .btn {
@@ -37,6 +62,7 @@
 .black-keys > .btn:nth-of-type(5n+3) { margin-left: 80px; }
 .black-keys > .btn:first-of-type { margin-left: 40px; }
 
+.black-keys > .btn:hover,
 .black-keys > .btn.active {
   background-color: #444;
 }
@@ -44,7 +70,7 @@
 .black-keys > .btn > span {
   float: left;
   margin-left: -20px;
-  transform: rotate(-90deg);
+  margin-top: 60px;
   -webkit-transform: rotate(-90deg);
   -moz-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);

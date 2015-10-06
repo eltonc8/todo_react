@@ -16,9 +16,11 @@ var Recorder = React.createClass({
         playButton = this._getPlayButton();
 
     return (
-      <div className="recorder">
-        <div className="title">Recorder Controls</div>
-        {recordButton} {playButton}
+      <div className="recorder row">
+        <div className="title col-xs-6 col-xs-offset-3 text-center">Recorder Controls</div>
+        <div className="col-xs-6 col-xs-offset-3 text-center">
+          {recordButton} {playButton}
+        </div>
       </div>
     )
   },
