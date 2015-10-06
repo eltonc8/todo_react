@@ -7,11 +7,9 @@ var Organ = React.createClass({
   render: function(){
     var keyList = KeyActions.keyCodesToNotes,
         blackKeyArray = this.blackKeys.map(function(key){
-          console.log(key + keyList[key])
           return (<Key keyName={keyList[key]}/>);
         }),
         whiteKeyArray = this.whiteKeys.map(function(key){
-          console.log(key + keyList[key])
           return (<Key keyName={keyList[key]}/>);
         });
     return (

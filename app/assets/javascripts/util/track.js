@@ -15,6 +15,7 @@
         time: new Date() - this.startTime,
         notes: keyState || KeyStore.allKeyState(),
       };
+      this.roll.push(receipt);
     },
 
     stopRecording: function(){

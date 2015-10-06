@@ -46,6 +46,14 @@
         AppDispatcher.dispatch(action);
       }
     },
+
+    keysSet: function(keys){
+      var action = {
+        actionType: "keySet",
+        keys: keys,
+      }
+      AppDispatcher.dispatch(action);
+    }
   };
 
   $(document).on("keydown", KeyActions.keyPressed);

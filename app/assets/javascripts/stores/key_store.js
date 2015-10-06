@@ -14,6 +14,13 @@
     return _playingKeys[key];
   }
 
+  function setKeys(keys){
+    for (var key in _playingKeys) {
+      _playingKeys[key] = undefined;
+    }
+    $.extend(_playingKeys, keys);
+  }
+
   window.KeyStore = $.extend({}, EventEmitter.prototype, {
     emitChange: function(){
       this.emit(CHANGE_EVENT);
@@ -53,6 +60,11 @@
 
       case "keyPlayStop":
         playStop(action.noteName);
+        KeyStore.emitChange();
+      break;
+
+      case "keySet":
+        setKeys(action.keys);
         KeyStore.emitChange();
       break;
 
