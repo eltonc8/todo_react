@@ -16,7 +16,7 @@ var Organ = React.createClass({
         });
     return (
       <div className="organ">
-
+        <Recorder />
         <div className="white-keys">
           {whiteKeyArray}
         </div>

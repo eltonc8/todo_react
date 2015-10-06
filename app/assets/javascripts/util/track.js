@@ -1,10 +1,10 @@
 ;(function(){
-  window.track = function(attributes){
-    this.name = attributes.name;
-    this.roll = attributes.roll;
+  window.Track = function(attributes){
+    this.name = attributes && attributes.name || "Unnamed Track";
+    this.roll = attributes && attributes.roll || [];
   };
 
-  $.extend(track.prototype, {
+  $.extend(Track.prototype, {
     startRecording: function(){
       this.roll = [];
       this.startTime = new Date();

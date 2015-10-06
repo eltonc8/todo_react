@@ -2,6 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.btn-record {
+  min-width: 90px;
+}
+
 .white-keys > .btn {
   position: relative;
   height: 240px;
