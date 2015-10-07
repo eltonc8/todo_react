@@ -32,10 +32,10 @@ var Organ = React.createClass({
     });
   },
 })
-
-$(function(){
-  React.render(
-    <Organ />,
-    $("#content").get(0)
-  )
-})
+// 
+// $(function(){
+//   React.render(
+//     <Organ />,
+//     $("#content").get(0)
+//   )
+// })

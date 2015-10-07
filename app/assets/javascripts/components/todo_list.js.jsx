@@ -29,10 +29,10 @@ var TodoList = React.createClass({
     )
   },
 });
-
-$(function () {
-  React.render(
-    <TodoList />,
-    $("#root").get(0)
-  )
-});
+//
+// $(function () {
+//   React.render(
+//     <TodoList />,
+//     $("#root").get(0)
+//   )
+// });
