@@ -14,6 +14,10 @@ gem 'react-rails', '1.3.0'
 gem 'flux-rails-assets'
 gem 'react-router-rails', '~>0.13.3.1'
 
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-github'
+
 # gem 'unicorn'
 # gem 'capistrano-rails', group: :development
 
